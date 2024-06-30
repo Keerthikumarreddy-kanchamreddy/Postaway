@@ -26,9 +26,10 @@ export const getById = (id)=>{
 }
 
 export const update = (data)=>{
-    const{userId, caption, imageURL, id} = data;
+    const{id, caption, imageURL} = data;
     const postIndex = posts.findIndex((p)=>p.id = id);
-    const modifiedPost = {userId, caption, imageURL, id};
+    const userId = posts[postIndex].userId;
+    const modifiedPost = {id, userId, caption, imageURL};
     posts[postIndex] = modifiedPost;
     return modifiedPost;
 }

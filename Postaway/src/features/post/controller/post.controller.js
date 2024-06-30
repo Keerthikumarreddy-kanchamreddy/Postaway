@@ -23,7 +23,7 @@ export const createPost = (req, res, next) =>{
     const data = req.body;
     const postCreated = add(data);
     if(postCreated){
-        return res.status(200).send({success:"true", msg:postCreated});
+        return res.status(201).send({success:"true", msg:postCreated});
     }else{
         return res.status(400).send({success:"false", msg:"could not create post, try again later"});
     }
@@ -36,6 +36,21 @@ export const deletePost = (req, res, next)=>{
         return res.status(200).send({success:"true", msg:removedPost});
     }else{
         return res.status(400).send({success:"false", msg:"could not delete post, try again later"});
+    }
+}
+
+export const updatePost = (req, res, next) =>{
+    const id = parseInt(req.params.id);
+    const caption = req.query.caption;
+    const imageURL = req.query.imageURL;
+    const data = {id, caption, imageURL};
+
+    const updatedPost = update(data);
+
+    if(updatedPost){
+        return res.status(201).send({success:"true", msg:updatedPost});
+    }else{
+        return res.status(400).send({success:"false", msg:"could not update post, please check the post content"});
     }
 }
 
