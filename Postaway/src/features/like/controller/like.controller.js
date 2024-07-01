@@ -1,0 +1,25 @@
+import { getLikesByPostId,toggleLikeStatus } from "../model/like.model.js";
+
+export const getAllLikes = (req, res, next)=>{
+    const id = req.params.id;
+    const status = getLikesByPostId(id);
+
+    if(status){
+        res.status(200).send({success:"true", msg:status});
+    }else{
+        res.status(400).send({success:"false", msg:status});
+    }
+}
+
+export const toggleLike = (req, res, next)=>{
+
+    const postId = req.params.postId;
+    const userId = req.body.userId;
+    const likeStatus = toggleLikeStatus(userId, postId);
+
+    if(likeStatus){
+        return res.status(200).send({success:"true", msg:likeStatus});
+    }else{
+        return res.status(400).send({success:"false", msg:likeStatus});
+    }
+}
