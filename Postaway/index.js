@@ -12,7 +12,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/posts",jwtAuth, postRoutes);
 app.use("/api/comments",jwtAuth, commentRoutes);
-app.use("/api/likes",likeRoutes);
+app.use("/api/likes",jwtAuth,likeRoutes);
 
 app.get("/", (req, res)=>{
     res.send("welcome to postaway app");

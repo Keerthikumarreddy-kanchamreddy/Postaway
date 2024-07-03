@@ -9,6 +9,16 @@ export const getAllPosts = (req, res, next)=>{
     }
 }
 
+export const getPostsByUserId = (req, res, next)=>{
+    const id = parseInt(req.userId);
+    const posts = getByUserId(id);
+    if(posts){
+        return res.status(200).send({success:"true", msg:posts});
+    }else{
+        return res.status(400).send({success:"false", msg:"could not retrieve posts, try later"})
+    }
+}
+
 export const getPostById = (req, res, next)=>{
     const id = parseInt(req.params.id);
     const post = getById(id);

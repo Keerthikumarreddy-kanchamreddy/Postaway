@@ -9,14 +9,13 @@ export default class LikeModel{
 export const toggleLikeStatus = (userId, postId)=>{
     const likeIndex = likes.findIndex((l)=> l.postId == postId && l.userId == userId);
 
-    if(likeIndex != -1){
-        const unlikedPost = likes[likeIndex];
+    if(likeIndex !== -1){
         likes.splice(likeIndex,1);
-        return unlikedPost;
+        return "you unliked the Post";
     }else{
         const newLike = new LikeModel(likes.length+1, userId, postId);
         likes.push(newLike);
-        return newLike;
+        return "You liked the post";
     }
 }
 

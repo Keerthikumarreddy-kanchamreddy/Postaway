@@ -5,16 +5,16 @@ export const getAllLikes = (req, res, next)=>{
     const status = getLikesByPostId(postId);
 
     if(status){
-        res.status(200).send({success:"true", msg:status});
+       return res.status(200).send({success:"true", msg:status});
     }else{
-        res.status(400).send({success:"false", msg:status});
+      return res.status(400).send({success:"false", msg:status});
     }
 }
 
 export const toggleLike = (req, res, next)=>{
 
-    const postId = req.params.postId;
-    const userId = req.body.userId;
+    const postId = parseInt(req.params.postId);
+    const userId = parseInt(req.userId);
     const likeStatus = toggleLikeStatus(userId, postId);
 
     if(likeStatus){
