@@ -10,13 +10,8 @@ export default class UserModel {
 
 export const confirmLogin = (data) => {
     const { email, password } = data;
-    let userResult = null;
-    users.forEach((user) => {
-      if (user.email === email && user.password === password){
-        userResult = user;
-      } 
-    });
-    return userResult;
+    let user = users.find((u)=>u.email == email && u.password == password);
+    return user;
 };
 
 export const addUser = (data)=>{
@@ -32,7 +27,12 @@ export const getAllUsers = () => {
 
 let users = [{
     id:1,
-    userName : "test",
-    email: 'test@gmail.com',
-    password: 'test123'
+    userName : 'tester1',
+    email: 'tester1@gmail.com',
+    password: 'tester1'
+},{
+    id:2,
+    userName:'tester2',
+    email:'tester2@gmail.com',
+    password:'tester2'
 }]

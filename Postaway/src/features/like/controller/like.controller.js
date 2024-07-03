@@ -1,8 +1,8 @@
 import { getLikesByPostId,toggleLikeStatus } from "../model/like.model.js";
 
 export const getAllLikes = (req, res, next)=>{
-    const id = req.params.id;
-    const status = getLikesByPostId(id);
+    const postId = req.params.postId;
+    const status = getLikesByPostId(postId);
 
     if(status){
         res.status(200).send({success:"true", msg:status});
