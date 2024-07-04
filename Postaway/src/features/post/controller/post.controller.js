@@ -20,12 +20,12 @@ export const getPostsByUserId = (req, res, next)=>{
 }
 
 export const getPostById = (req, res, next)=>{
-    const id = parseInt(req.params.id);
-    const post = getById(id);
-    if(post){
+    try {
+        const id = parseInt(req.params.id);
+        const post = getById(id);
         return res.status(200).send({success:"true", msg:post});
-    }else{
-        return res.status(400).send({success:"false", msg:"enter valid post id"});
+    } catch (err) {
+        next(err);    
     }
 }
 
@@ -40,27 +40,26 @@ export const createPost = (req, res, next) =>{
 }
 
 export const deletePost = (req, res, next)=>{
-    const id = parseInt(req.params.id);
-    const removedPost = remove(id);
-    if(removedPost){
+    try {
+        const id = parseInt(req.params.id);
+        const removedPost = remove(id);
         return res.status(200).send({success:"true", msg:removedPost});
-    }else{
-        return res.status(400).send({success:"false", msg:"could not delete post, try again later"});
+    } catch (err) {
+     next(err)   
     }
 }
 
 export const updatePost = (req, res, next) =>{
-    const id = parseInt(req.params.id);
-    const caption = req.query.caption;
-    const imageURL = req.query.imageURL;
-    const data = {id, caption, imageURL};
+    try {
+        const id = parseInt(req.params.id);
+        const caption = req.query.caption;
+        const imageURL = req.query.imageURL;
+        const data = {id, caption, imageURL};
 
-    const updatedPost = update(data);
-
-    if(updatedPost){
+        const updatedPost = update(data);
         return res.status(201).send({success:"true", msg:updatedPost});
-    }else{
-        return res.status(400).send({success:"false", msg:"could not update post, please check the post content"});
+    } catch (err) {
+        next(err);
     }
 }
 

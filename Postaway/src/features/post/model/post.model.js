@@ -1,3 +1,4 @@
+import { ApplicationError } from "../../../error-handler/applicationError.js";
 
 export default class PostModel {
     constructor(id, userId, caption, imageURL){
@@ -22,12 +23,18 @@ export const getByUserId = (userId)=>{
 
 export const getById = (id)=>{
     const post = posts.find((p)=>p.id == id);
+    if(!post){
+        throw new ApplicationError(404, "Enter valid Post Id");
+    }
     return post;
 }
 
 export const update = (data)=>{
     const{id, caption, imageURL} = data;
-    const postIndex = posts.findIndex((p)=>p.id = id);
+    const postIndex = posts.findIndex((p)=>p.id == id);
+    if(postIndex === -1){
+        throw new ApplicationError(404, "Please check the postId that you are trying to update")
+    }
     const userId = posts[postIndex].userId;
     const modifiedPost = {id, userId, caption, imageURL};
     posts[postIndex] = modifiedPost;
@@ -36,6 +43,9 @@ export const update = (data)=>{
 
 export const remove = (id) =>{
     const postIndex = posts.findIndex((p)=>p.id == id);
+    if(postIndex === -1){
+        throw new ApplicationError(404, "Please check the postId that you are trying to delete")
+    }
     const post = posts[postIndex];
     posts.splice(postIndex,1);
     return post;
