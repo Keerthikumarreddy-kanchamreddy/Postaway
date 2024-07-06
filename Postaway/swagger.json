@@ -1,0 +1,119 @@
+{
+    "openapi": "3.0.0",
+    "info":{
+        "title" : "PostAway API",
+        "description" : "Back-end REST API's for Postaway",
+        "version" : "1.0.0"
+    },
+    "servers" :[{
+        "url" : "http://localhost:3000"
+    }],
+    "components":
+    {
+        "securitySchemes":
+        {
+            "JWT":
+            {
+                "in":"header",
+                "name":"Authorization",
+                "type": "apiKey"
+            }
+        }
+    },
+    "paths":{
+        "/api/users/signup": 
+        {
+            "post":
+            {
+                "tags": ["Users"],
+                "summary":"Register",
+                "description":"New user registration",
+                "requestBody":
+                {
+                    "content":
+                    {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "userName":{
+                                        "type":"string"
+                                    },
+                                    "email":{
+                                        "type": "string"
+                                    },
+                                    "password":{
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200": {
+                        "description":"OK"
+                    },
+                    "400": {
+                        "description": "Invalid Data"
+                    }
+                }
+            }
+        },
+        "/api/users/signin": 
+        {
+            "post":
+            {
+                "tags": ["Users"],
+                "summary":"Login",
+                "description":"User login to get token",
+                "requestBody":
+                {
+                    "content":
+                    {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email":{
+                                        "type": "string"
+                                    },
+                                    "password":{
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200": {
+                        "description":"OK"
+                    },
+                    "400": {
+                        "description": "Incorrect Credentials"
+                    }
+                }
+            }
+        },
+        "/api/posts/all": 
+        {
+            "get":
+            {
+                "tags": ["Posts"],
+                "summary":"GetAll",
+                "description":"Get all posts",
+                "security":[{"JWT": {} }],
+                "responses":{
+                    "200": {
+                        "description":"OK"
+                    },
+                    "400": {
+                        "description": "Could not get posts, try again later"
+                    }
+                }
+            }
+        }
+        
+    }
+}
